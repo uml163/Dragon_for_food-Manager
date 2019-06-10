@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-/Users/shuufuyou/Desktop/test/common/libs/member/CartService.py
+# -*- coding: utf-8 -*-
 #购物车功能实现
 from application import db
 from common.models.member.MemberCart import MemberCart
@@ -32,5 +32,4 @@ class CartService():
         db.session.add(MemberCart_model)
         db.session.commit()
         return True
-
 

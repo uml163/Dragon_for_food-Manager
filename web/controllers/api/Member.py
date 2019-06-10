@@ -33,6 +33,8 @@ def login():
         判断是否已经测试过，注册了直接返回一些信息
     '''
     bind_info = OauthMemberBind.query.filter_by( openid = openid,type = 1 ).first()
+    print("bin_info   ",bind_info)
+    bind_info = None
     if not bind_info:
         model_member = Member()
         model_member.nickname = nickname

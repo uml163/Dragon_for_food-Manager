@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-SERVER_PORT = 5000
+SERVER_PORT = 5001
 DEBUG = False
 SQLALCHEMY_ECHO = False
 
@@ -31,7 +31,7 @@ STATUS_MAPPING = {
 
 MINA_APP = {
     'appid':'wx91b376d36fc0c473',
-    'appkey':'dc9b7acdb62b3f7e39b078ce2759b532',
+    'appkey':'e120d925385b8c4105237960c46b162b',
     'callback_url':'/api/order/callback'
 }
 
@@ -43,7 +43,7 @@ UPLOAD = {
 }
 
 APP = {
-    'domain':'119.23.56.12:5000'
+    'domain':'119.23.56.12:5001'
 }
 
 

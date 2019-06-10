@@ -1,18 +1,18 @@
 # -*- coding: utf-8 -*-
-import hashlib,requests,random,string,json
-from application import  app
+import hashlib, requests, random, string, json
+from application import app
 class MemberService():
 
     @staticmethod
-    def geneAuthCode( member_info = None ):
+    def geneAuthCode(member_info = None ):
         m = hashlib.md5()
         str = "%s-%s-%s" % ( member_info.id, member_info.salt,member_info.status)
         m.update(str.encode("utf-8"))
         return m.hexdigest()
 
     @staticmethod
-    def geneSalt( length = 16 ):
-        keylist = [ random.choice( ( string.ascii_letters + string.digits ) ) for i in range( length ) ]
+    def geneSalt(length = 16):
+        keylist = [random.choice( ( string.ascii_letters + string.digits ) ) for i in range(length)]
         return ( "".join( keylist ) )
 
     @staticmethod

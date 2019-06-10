@@ -3,6 +3,7 @@ from application import  app
 from common.libs.Helper import ops_render
 from common.libs.LogService import LogService
 
+#统一错误处理
 @app.errorhandler( 404 )
 def error_404( e ):
     LogService.addErrorLog( str( e ) )
