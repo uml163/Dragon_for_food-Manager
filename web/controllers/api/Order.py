@@ -2,7 +2,7 @@
 from web.controllers.api import route_api
 from flask import request, jsonify,g
 from application import app, db
-import json, decimal
+import json, decimal,uuid
 from common.models.food.Food import Food
 from common.models.pay.PayOrder import PayOrder
 from common.libs.UrlManager import UrlManager
@@ -124,13 +124,19 @@ def orderPay():
 
 	config_mina = app.config['MINA_APP']
 	notify_url = app.config['APP']['domain'] + config_mina['callback_url']
-	"""
-	target_wechat = WeChatService( merchant_key=config_mina['paykey'] )
+
+
+	print("pay_order_info", pay_order_info.order_sn)
+	nonce_str = str(uuid.uuid4()).replace('-', '')
+	print("nonce_str",nonce_str)
+
+	target_wechat = WeChatService(  )
 
 	data = {
 		'appid': config_mina['appid'],
-		'mch_id': config_mina['mch_id'],
-		'nonce_str': target_wechat.get_nonce_str(),
+		#'mch_id': config_mina['mch_id'],
+		'mch_id': 'mch_id',
+		'nonce_str': nonce_str,
 		'body': '订餐',  # 商品描述
 		'out_trade_no': pay_order_info.order_sn,  # 商户订单号
 		'total_fee': int( pay_order_info.total_price * 100 ),
@@ -142,13 +148,15 @@ def orderPay():
 	pay_info = target_wechat.get_pay_info( pay_data=data)
 
 	#保存prepay_id为了后面发模板消息
-	#pay_order_info.prepay_id = pay_info['prepay_id']
-	"""
-	pay_order_info.status = '1'
+
+	pay_order_info.x = pay_info['prepay_id']
+
+	pay_order_info.status = 1
+	print(pay_order_info)
 	db.session.add( pay_order_info )
 	db.session.commit()
 
-	#resp['data']['pay_info'] = pay_info
+	resp['data']['pay_info'] = pay_info
 	return jsonify(resp)
 
 @route_api.route("/order/callback", methods=[ "POST"])

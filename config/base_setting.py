@@ -32,6 +32,8 @@ STATUS_MAPPING = {
 MINA_APP = {
     'appid':'wx91b376d36fc0c473',
     'appkey':'e120d925385b8c4105237960c46b162b',
+    'paykey':'paykey',
+    'mch_id':'mch_id',
     'callback_url':'/api/order/callback'
 }
 
@@ -43,7 +45,7 @@ UPLOAD = {
 }
 
 APP = {
-    'domain':'119.23.56.12:5001'
+    'domain':'0.0.0.0:'+ str(SERVER_PORT)
 }
 
 

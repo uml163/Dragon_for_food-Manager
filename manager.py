@@ -7,7 +7,7 @@ import www
 
 ##web server
 
-manager.add_command("runserver", Server(host='0.0.0.0', use_debugger=True, use_reloader=True,port=app.config['SERVER_PORT']))
+manager.add_command("runserver", Server(host='0.0.0.0', use_debugger=True, use_reloader=True,port=app.config['SERVER_PORT'] ))
 
 def main():
     manager.run()
