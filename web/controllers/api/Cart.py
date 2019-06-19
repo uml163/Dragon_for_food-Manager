@@ -15,7 +15,7 @@ def cartIndex():
     member_info = g.member_info
     if not member_info:
         resp['code'] = -1
-        resp['msg'] = "获取失败，未登陆~~"
+        resp['msg'] = "获取失败，伪登录~~"
         return jsonify(resp)
     cart_list = MemberCart.query.filter_by( member_id=member_info.id).all()
     data_cart_list = []
@@ -37,7 +37,7 @@ def cartIndex():
 
     resp['data']['list'] = data_cart_list
     return jsonify(resp)
-#添加美食至购物车
+
 @route_api.route("/cart/set", methods=["POST"])
 def setCart():
     resp = {'code': 200, 'msg': '添加购物车成功~', 'data': {}}
@@ -46,19 +46,19 @@ def setCart():
     number = int(req['number']) if 'number' in req else 0
     if food_id < 1 or number < 1:
         resp['code'] = -1
-        resp['msg'] = "添加购物车失败-1（数量不足）~~"
+        resp['msg'] = "添加购物车失败-1~~"
         return jsonify(resp)
 
     member_info = g.member_info
     if not member_info:
         resp['code'] = -1
-        resp['msg'] = "添加购物车失败-2（用户不存在）~~"
+        resp['msg'] = "添加购物车失败-2~~"
         return jsonify(resp)
 
     food_info = Food.query.filter_by( id =  food_id ).first()
     if not food_info:
         resp['code'] = -1
-        resp['msg'] = "添加购物车失败-3（美食不存在）~~"
+        resp['msg'] = "添加购物车失败-3~~"
         return jsonify(resp)
 
     if food_info.stock < number:
@@ -72,7 +72,7 @@ def setCart():
         resp['msg'] = "添加购物车失败-4~~"
         return jsonify(resp)
     return jsonify(resp)
-#从购物车中删除美食
+
 @route_api.route("/cart/del", methods=["POST"])
 def delCart():
     resp = {'code': 200, 'msg': '添加购物车成功~', 'data': {}}

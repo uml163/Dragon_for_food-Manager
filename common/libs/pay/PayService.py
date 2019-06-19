@@ -2,12 +2,10 @@
 import hashlib,time,random,decimal,json
 from application import  app,db
 from common.models.food.Food import Food
-from common.models.food.FoodSaleChangeLog import FoodSaleChangeLog
+#from common.models.food.FoodSaleChangeLog import FoodSaleChangeLog
 from common.models.pay.PayOrder import PayOrder
 from common.models.pay.PayOrderItem import PayOrderItem
-from common.models.pay.PayOrderCallbackData import PayOrderCallbackData
 from common.libs.Helper import getCurrentDate
-from common.libs.queue.QueueService import QueueService
 from common.libs.food.FoodService import FoodService
 class PayService():
 
@@ -128,7 +126,20 @@ class PayService():
         db.session.commit()
         return True
 
-    def orderSuccess(self,pay_order_id = 0,params = None):
+
+
+    def geneOrderSn(self):
+        m = hashlib.md5()
+        sn = None
+        while True:
+            str = "%s-%s"%( int( round( time.time() * 1000) ),random.randint( 0,9999999 ) )
+            m.update(str.encode("utf-8"))
+            sn = m.hexdigest()
+            if not PayOrder.query.filter_by( order_sn = sn  ).first():
+                break
+        return sn
+"""
+        def orderSuccess(self,pay_order_id = 0,params = None):
         try:
             pay_order_info = PayOrder.query.filter_by( id = pay_order_id ).first()
             if not pay_order_info or pay_order_info.status not in [ -8,-7 ]:
@@ -163,7 +174,7 @@ class PayService():
             "pay_order_id":pay_order_info.id
         })
         return True
-
+        
     def addPayCallbackData(self,pay_order_id = 0,type = 'pay',data = ''):
         model_callback = PayOrderCallbackData()
         model_callback.pay_order_id = pay_order_id
@@ -178,14 +189,5 @@ class PayService():
         db.session.add( model_callback )
         db.session.commit()
         return True
+"""
 
-    def geneOrderSn(self):
-        m = hashlib.md5()
-        sn = None
-        while True:
-            str = "%s-%s"%( int( round( time.time() * 1000) ),random.randint( 0,9999999 ) )
-            m.update(str.encode("utf-8"))
-            sn = m.hexdigest()
-            if not PayOrder.query.filter_by( order_sn = sn  ).first():
-                break
-        return sn

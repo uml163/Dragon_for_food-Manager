@@ -151,15 +151,19 @@ def orderPay():
 
 	pay_order_info.x = pay_info['prepay_id']
 
+
 	pay_order_info.status = 1
+	pay_order_info.express_status = 1
+	pay_order_info.order_sn = nonce_str
 	print(pay_order_info)
 	db.session.add( pay_order_info )
 	db.session.commit()
 
 	resp['data']['pay_info'] = pay_info
 	return jsonify(resp)
-
+"""
 @route_api.route("/order/callback", methods=[ "POST"])
+
 def orderCallback():
 	result_data = {
 		'return_code': 'SUCCESS',
@@ -198,7 +202,7 @@ def orderCallback():
 	target_pay.orderSuccess( pay_order_id = pay_order_info.id,params = { "pay_sn":callback_data['transaction_id'] } )
 	target_pay.addPayCallbackData( pay_order_id = pay_order_info.id, data = request.data)
 	return target_wechat.dict_to_xml(result_data), header
-
+"""
 @route_api.route("/order/ops", methods=[ "POST"])
 def orderOps():
 	resp = {'code': 200, 'msg': '操作成功~', 'data': {}}
