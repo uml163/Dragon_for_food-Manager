@@ -1,7 +1,0 @@
-flask
-flask-sqlalchemy
-flask-debugtoolbar
-mysqlclient
-flask_script
-requests
-uwsgi

@@ -33,7 +33,7 @@ def login():
         判断是否已经测试过，注册了直接返回一些信息
     '''
     bind_info = OauthMemberBind.query.filter_by( openid = openid,type = 1 ).first()
-    print("bin_info sssssssssss  ",bind_info)
+    print("bin_info   ",bind_info)
     bind_info = None
     if not bind_info:
         model_member = Member()
@@ -105,7 +105,6 @@ def memberShare():
         model_share.member_id = member_info.id
     model_share.share_url = url
     model_share.created_time = getCurrentDate()
-    print("memberShare success")
     db.session.add(model_share)
     db.session.commit()
     return jsonify(resp)
